@@ -30,21 +30,22 @@ class _LineChartSample2State extends ConsumerState<LineChartSample2> {
   Widget build(BuildContext context) {
     final contentState = ref.watch(dashboardProvider);
 
-    return Stack(
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 2,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              right: 20,
-              left: 25,
-              top: 24,
-              bottom: 12,
-            ),
-            child: LineChart(mainData(contentState.contentVentasPorDias)),
+    return Card(
+      elevation: 5,
+      color: Colors.blueGrey[50],
+      margin: const EdgeInsets.all(20.0),
+      child: AspectRatio(
+        aspectRatio: 2,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            right: 20,
+            left: 25,
+            top: 24,
+            bottom: 12,
           ),
+          child: LineChart(mainData(contentState.contentVentasPorDias)),
         ),
-      ],
+      ),
     );
   }
 

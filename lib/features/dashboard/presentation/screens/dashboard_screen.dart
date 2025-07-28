@@ -1,3 +1,5 @@
+import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dashboards/reportes_slider.dart';
+import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dashboards/sucursal_chart.dart';
 import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dashboards/tamales_mas_vendidos_chart.dart';
 import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dashboards/ventas_diarias_chart.dart';
 import 'package:cazuela_chapina_app/features/shared/widgets/side_menu.dart';
@@ -38,10 +40,18 @@ class _DashboardsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('Ventas Diarias', style: TextStyle(fontSize: 15)),
+          SucursalChartScreen(),
+          SizedBox(height: 10),
+          ReportesSlider(),
+          SizedBox(height: 20),
+
           const Text(
-            'fecha de Venta vs Total de Ventas vs Total Ingreso',
-            style: TextStyle(fontSize: 12),
+            'Ventas Diarias',
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 22),
+          ),
+          const Text(
+            'Total de Ventas, Fecha de Venta, Total Ingreso',
+            style: TextStyle(fontSize: 14),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal, // or Axis.vertical
@@ -52,7 +62,10 @@ class _DashboardsView extends StatelessWidget {
               child: LineChartSample2(),
             ),
           ),
-          const Text('Tamales mas vendidos', style: TextStyle(fontSize: 15)),
+          const Text(
+            'Tamales mas vendidos',
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 22),
+          ),
           SizedBox(height: 10),
           TamalesMasVendidosChart(),
         ],

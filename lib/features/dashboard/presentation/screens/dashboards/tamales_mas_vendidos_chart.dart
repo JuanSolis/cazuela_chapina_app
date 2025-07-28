@@ -34,62 +34,69 @@ class PieChartSample1State extends ConsumerState {
       aspectRatio: 2,
       child: Column(
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Indicator(
-                color: AppColors.contentColorBlue,
-                text:
-                    contentStateData.length > 0
-                        ? contentStateData[0]['relleno']
-                        : '...',
-                isSquare: false,
-                size: touchedIndex == 0 ? 18 : 16,
-                textColor:
-                    touchedIndex == 0
-                        ? AppColors.contentColorBlue
-                        : AppColors.contentColorBlue,
-              ),
-              Indicator(
-                color: AppColors.contentColorYellow,
-                text:
-                    contentStateData.length > 1
-                        ? contentStateData[1]['relleno']
-                        : '...',
-                isSquare: false,
-                size: touchedIndex == 1 ? 18 : 16,
-                textColor:
-                    touchedIndex == 1
-                        ? AppColors.mainTextColor1
-                        : AppColors.contentColorYellow,
-              ),
-              Indicator(
-                color: AppColors.contentColorPink,
-                text:
-                    contentStateData.length > 2
-                        ? contentStateData[2]['relleno']
-                        : '...',
-                isSquare: false,
-                size: touchedIndex == 2 ? 18 : 16,
-                textColor:
-                    touchedIndex == 2
-                        ? AppColors.mainTextColor1
-                        : AppColors.contentColorPink,
-              ),
-              Indicator(
-                color: AppColors.contentColorGreen,
-                text:
-                    contentStateData.length > 3
-                        ? contentStateData[3]['relleno']
-                        : '...',
-                isSquare: false,
-                size: touchedIndex == 3 ? 18 : 16,
-                textColor:
-                    touchedIndex == 3
-                        ? AppColors.mainTextColor1
-                        : AppColors.contentColorGreen,
-              ),
-            ],
+          SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            scrollDirection:
+                Axis.horizontal, // Set scroll direction to horizontal
+            child: Row(
+              spacing: 20,
+              children: [
+                Indicator(
+                  color: AppColors.contentColorBlue,
+                  text:
+                      contentStateData.length > 0
+                          ? contentStateData[0]['relleno']
+                          : '...',
+                  isSquare: false,
+                  size: touchedIndex == 0 ? 18 : 16,
+                  textColor:
+                      touchedIndex == 0
+                          ? AppColors.contentColorBlue
+                          : AppColors.contentColorBlue,
+                ),
+                Indicator(
+                  color: AppColors.contentColorYellow,
+                  text:
+                      contentStateData.length > 1
+                          ? contentStateData[1]['relleno']
+                          : '...',
+                  isSquare: false,
+                  size: touchedIndex == 1 ? 18 : 16,
+                  textColor:
+                      touchedIndex == 1
+                          ? AppColors.mainTextColor1
+                          : AppColors.contentColorYellow,
+                ),
+                Indicator(
+                  color: AppColors.contentColorPink,
+                  text:
+                      contentStateData.length > 2
+                          ? contentStateData[2]['relleno']
+                          : '...',
+                  isSquare: false,
+                  size: touchedIndex == 2 ? 18 : 16,
+                  textColor:
+                      touchedIndex == 2
+                          ? AppColors.mainTextColor1
+                          : AppColors.contentColorPink,
+                ),
+                Indicator(
+                  color: AppColors.contentColorGreen,
+                  text:
+                      contentStateData.length > 3
+                          ? contentStateData[3]['relleno']
+                          : '...',
+                  isSquare: false,
+                  size: touchedIndex == 3 ? 18 : 16,
+                  textColor:
+                      touchedIndex == 3
+                          ? AppColors.mainTextColor1
+                          : AppColors.contentColorGreen,
+                ),
+              ],
+            ),
           ),
+
           const SizedBox(height: 18),
           Expanded(
             child: AspectRatio(
@@ -209,7 +216,7 @@ class PieChartSample1State extends ConsumerState {
             value:
                 contentStateData.length > 0
                     ? contentStateData[3]['totalVendidos'].toDouble()
-                    : "",
+                    : 0,
             title:
                 contentStateData.length > 0
                     ? contentStateData[3]['totalVendidos'].toString()

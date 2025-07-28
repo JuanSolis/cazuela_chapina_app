@@ -31,4 +31,30 @@ class DashboardDatasourceImpl {
       throw WrongCredentialsError();
     }
   }
+
+  Future<List<dynamic>> reportePorSucurcal(token) async {
+    try {
+      final response = await dio.get(
+        '/Dashboard/ReportePorSucursal',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      return response.data;
+    } catch (e) {
+      throw WrongCredentialsError();
+    }
+  }
+
+  Future<List<dynamic>> bebidasPreferidasPorHorario(token) async {
+    try {
+      final response = await dio.get(
+        '/Dashboard/BebidaPreferidaPorHorario',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      return response.data;
+    } catch (e) {
+      throw WrongCredentialsError();
+    }
+  }
 }
