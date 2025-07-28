@@ -44,7 +44,11 @@ class _SideMenuState extends ConsumerState<SideMenu> {
         ),
 
         const NavigationDrawerDestination(
-          icon: Icon(Icons.home_outlined),
+          icon: Icon(Icons.show_chart_outlined),
+          label: Text('Dashboard'),
+        ),
+        const NavigationDrawerDestination(
+          icon: Icon(Icons.show_chart_outlined),
           label: Text('Dashboard'),
         ),
 

@@ -17,8 +17,8 @@ dependencies:
   google_fonts: ^4.0.3
   shared_preferences: ^2.0.18
 
-
 dev_dependencies:
+  fl_chart: ^1.0.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter

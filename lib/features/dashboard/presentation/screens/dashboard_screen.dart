@@ -1,3 +1,5 @@
+import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dashboards/tamales_mas_vendidos_chart.dart';
+import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dashboards/ventas_diarias_chart.dart';
 import 'package:cazuela_chapina_app/features/shared/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +33,30 @@ class _DashboardsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Dashboard aca!'));
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical, // or Axis.vertical
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text('Ventas Diarias', style: TextStyle(fontSize: 15)),
+          const Text(
+            'fecha de Venta vs Total de Ventas vs Total Ingreso',
+            style: TextStyle(fontSize: 12),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal, // or Axis.vertical
+            child: SizedBox(
+              // Or directly your chart widget
+              width:
+                  700.0, // Example: set a larger width than screen for horizontal scroll
+              child: LineChartSample2(),
+            ),
+          ),
+          const Text('Tamales mas vendidos', style: TextStyle(fontSize: 15)),
+          SizedBox(height: 10),
+          TamalesMasVendidosChart(),
+        ],
+      ),
+    );
   }
 }
