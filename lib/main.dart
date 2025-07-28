@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'package:cazuela_chapina_app/config/constants/environmet.dart';
 import 'package:cazuela_chapina_app/config/theme/app_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,14 +13,15 @@ void main() async {
 
   await Environment.initEnvironment();
 
-  runApp(const MainApp());
+  runApp(ProviderScope(child: const MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appRouter = ref.watch(goRouterProvider);
     return MaterialApp.router(
       routerConfig: appRouter,
       theme: AppTheme().getTheme(),

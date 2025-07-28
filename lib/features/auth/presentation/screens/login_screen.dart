@@ -1,5 +1,8 @@
+import 'package:cazuela_chapina_app/features/auth/presentation/providers/auth_provider.dart';
+import 'package:cazuela_chapina_app/features/auth/presentation/providers/providers.dart';
 import 'package:cazuela_chapina_app/features/shared/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -44,11 +47,25 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
+class _LoginForm extends ConsumerWidget {
   const _LoginForm();
 
+  void showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginForm = ref.watch(loginFormProvider);
+
+    ref.listen(authProvider, (previous, next) {
+      print("Error Message ${next.errorMessage}");
+      if (next.errorMessage.isEmpty) return;
+      showSnackBar(context, next.errorMessage);
+    });
     final textStyles = Theme.of(context).textTheme;
 
     return Padding(
@@ -59,13 +76,32 @@ class _LoginForm extends StatelessWidget {
           Text('Ingresar', style: textStyles.titleLarge),
           const SizedBox(height: 30),
 
-          const CustomTextFormField(
+          CustomTextFormField(
             label: 'Usuario',
             keyboardType: TextInputType.emailAddress,
+            onChanged:
+                (value) => ref
+                    .read(loginFormProvider.notifier)
+                    .onUsernameChanged(value),
+            errorMessage:
+                loginForm.errorMessage == "no-error"
+                    ? null
+                    : loginForm.errorMessage,
           ),
           const SizedBox(height: 30),
 
-          const CustomTextFormField(label: 'Contraseña', obscureText: true),
+          CustomTextFormField(
+            label: 'Contraseña',
+            obscureText: true,
+            onChanged:
+                (value) => ref
+                    .read(loginFormProvider.notifier)
+                    .onPasswordChanged(value),
+            errorMessage:
+                loginForm.errorMessage == "no-error"
+                    ? null
+                    : loginForm.errorMessage,
+          ),
 
           const SizedBox(height: 30),
 
@@ -73,13 +109,15 @@ class _LoginForm extends StatelessWidget {
             width: double.infinity,
             height: 60,
             child: CustomFilledButton(
-              text: 'Ingresar',
+              text: loginForm.isPosting ? 'cargando...' : 'Ingresar',
               buttonColor: Colors.black,
-              onPressed: () {},
+              onPressed: () {
+                loginForm.isPosting
+                    ? null
+                    : ref.read(loginFormProvider.notifier).onFormSubmit();
+              },
             ),
           ),
-
-          const Spacer(flex: 2),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

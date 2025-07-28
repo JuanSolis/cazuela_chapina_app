@@ -6,5 +6,5 @@ class Environment {
   }
 
   static String apiUrl =
-      dotenv.env['api_endppint'] ?? 'No está configurado el API_URL';
+      dotenv.env['api_endpoint'] ?? 'No está configurado el API_URL';
 }
