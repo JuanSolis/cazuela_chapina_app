@@ -1,13 +1,12 @@
 import 'dart:developer';
 
 import 'package:cazuela_chapina_app/features/dashboard/infraesctucture/datasource/dashboard_datasource_impl.dart';
-import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dashboards/tamales_mas_vendidos_chart.dart';
 import 'package:cazuela_chapina_app/features/shared/services/key_value_storage_service.dart';
 import 'package:cazuela_chapina_app/features/shared/services/key_value_storage_service_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final dashboardProvider =
-    StateNotifierProvider<DashboardNotifier, DashboardState>((ref) {
+    StateNotifierProvider.autoDispose<DashboardNotifier, DashboardState>((ref) {
       final dashboardDataSource = DashboardDatasourceImpl();
       final keyValueStorage = KeyValueStorageServiceImpl();
       return DashboardNotifier(

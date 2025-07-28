@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:cazuela_chapina_app/features/auth/presentation/providers/auth_provider.dart';
+import 'package:cazuela_chapina_app/features/shared/providers/menu_provider.dart';
 import 'package:cazuela_chapina_app/features/shared/widgets/custom_filled_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SideMenu extends ConsumerStatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -13,23 +17,26 @@ class SideMenu extends ConsumerStatefulWidget {
 }
 
 class _SideMenuState extends ConsumerState<SideMenu> {
-  int navDrawerIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     final hasNotch = MediaQuery.of(context).viewPadding.top > 35;
     final textStyles = Theme.of(context).textTheme;
 
+    final menuData = ref.watch(menuProvider);
+
     return NavigationDrawer(
       elevation: 1,
-      selectedIndex: navDrawerIndex,
+      selectedIndex: menuData.navDrawerIndex,
       onDestinationSelected: (value) {
-        setState(() {
-          navDrawerIndex = value;
-        });
+        ref.watch(menuProvider.notifier).onDestinationSelected(value);
+        if (value == 0) {
+          // Navegar al dashboard
+          context.go('/');
+        } else if (value == 1) {
+          // Navegar a los combos
+          context.go('/combos');
+        }
 
-        // final menuItem = appMenuItems[value];
-        // context.push( menuItem.link );
         widget.scaffoldKey.currentState?.closeDrawer();
       },
       children: [
@@ -48,8 +55,8 @@ class _SideMenuState extends ConsumerState<SideMenu> {
           label: Text('Dashboard'),
         ),
         const NavigationDrawerDestination(
-          icon: Icon(Icons.show_chart_outlined),
-          label: Text('Dashboard'),
+          icon: Icon(Icons.storefront_outlined),
+          label: Text('Combos'),
         ),
 
         const Padding(

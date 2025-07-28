@@ -4,6 +4,7 @@ import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dash
 import 'package:cazuela_chapina_app/features/dashboard/presentation/screens/dashboards/ventas_diarias_chart.dart';
 import 'package:cazuela_chapina_app/features/shared/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -24,7 +25,9 @@ class DashboardScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         label: const Text('Realizar Compra'),
         icon: const Icon(Icons.shopping_cart_outlined),
-        onPressed: () {},
+        onPressed: () {
+          context.go("/combos");
+        },
       ),
     );
   }
